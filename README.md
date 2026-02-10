@@ -1,15 +1,16 @@
 
 ---
 
-### XD's Library
+### XD's Mod Template
 
-#### XDPXI's library for numerous tasks.
+#### A multi version and loader template for creating minecraft mods
 
 ---
 
 ### Features
 
-> Please view the [Documentation](https://xdlib.xdpxi.dev/) for the correct features for your version
+- Supports most versions above and including Minecraft 1.21
+- Supports NeoForge and Fabric/Quilt
 
 ---
 
@@ -17,10 +18,10 @@
 
 #### To build the mod from source follow the steps below:
 
-- Clone the [Git repository](https://github.com/XDPXI/XDLib)
+- Clone the [Git repository](https://github.com/XDPXI/XDs-Mod-Template)
 
 - Run `gradlew build` or `build.ps1` in your terminal in the cloned repository
 
-#### The compiled mod will be in `build/libs`
+#### The compiled mod files will be in `build/libs`
 
 ---
