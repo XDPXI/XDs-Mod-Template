@@ -1,0 +1,72 @@
+plugins {
+    id "java"
+}
+
+allprojects {
+    apply plugin: "java"
+
+    group = "dev.xdpxi"
+    version = rootProject.property("version")
+
+    java {
+        toolchain.languageVersion = JavaLanguageVersion.of(21)
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url = "https://maven.fabricmc.net/" }
+    }
+}
+
+tasks.register('updateFabricVersions') {
+    doLast {
+        String projectVersion = project.version.toString()
+
+        fileTree(rootDir) {
+            include '**/fabric.mod.json'
+        }.each { file ->
+            String content = file.text
+
+            String relativePath = file.absolutePath
+            def matcher = relativePath =~ /fabric-(\d+\.\d+\.\d+)/
+            String minecraftVersion = matcher ? matcher[0][1] : "1.21"
+
+            content = content.replaceAll(
+                    /"version"\s*:\s*"[^"]*"/,
+                    "\"version\": \"${projectVersion}-fabric-${minecraftVersion}\""
+            )
+
+            file.text = content
+        }
+    }
+}
+
+tasks.register('updateNeoForgeVersions') {
+    doLast {
+        String projectVersion = project.version.toString()
+
+        fileTree(rootDir) {
+            include '**/neoforge.mods.toml'
+        }.each { file ->
+            String relativePath = file.absolutePath
+            def matcher = relativePath =~ /neoforge-(\d+\.\d+\.\d+)/
+            String minecraftVersion = matcher ? matcher[0][1] : "1.21"
+
+            file.text = file.text.replaceAll(
+                    /version\s*=\s*"[^"]*"/,
+                    "version = \"${projectVersion}-neoforge-${minecraftVersion}\""
+            )
+        }
+    }
+}
+
+tasks.register('updateAllVersions') {
+    dependsOn(
+            'updateFabricVersions',
+            'updateNeoForgeVersions'
+    )
+}
+
+tasks.named('build') {
+    dependsOn('updateAllVersions')
+}

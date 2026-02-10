@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "template",
+  "version": "1.0.0",
+  "name": "XD's Mod Template",
+  "description": "A multi version and loader template for creating minecraft mods",
+  "authors": ["XDPXI"],
+  "contact": {
+    "sources": "https://github.com/XDPXI/XDs-Mod-Template",
+    "issues": "https://github.com/XDPXI/XDs-Mod-Template/issues"
+  },
+  "license": "XDs-MC-License",
+  "icon": "assets/template/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["dev.xdpxi.template.Main"],
+    "client": ["dev.xdpxi.template.Client"]
+  },
+  "mixins": [
+    "template.mixins.json",
+    {
+      "config": "template.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": ">=1.21.6 <=1.21.8",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
