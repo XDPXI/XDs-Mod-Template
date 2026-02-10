@@ -1,5 +1,5 @@
 # Configuration
-$version = "7.0.0-SNAPSHOT" # MUST BE SAME VERSION FROM GRADLE PROPERTIES
+$version = "1.0.0-SNAPSHOT" # MUST BE SAME VERSION FROM GRADLE PROPERTIES
 $mods = @(
     "fabric-1.21.1",
     "fabric-1.21.4",
@@ -12,6 +12,7 @@ $mods = @(
     "neoforge-1.21.10",
     "neoforge-1.21.11"
 )
+$name = "template"
 
 $rootDir = Get-Location
 $buildDir = Join-Path $rootDir "build"
@@ -95,7 +96,7 @@ foreach ($mod in $mods)
     }
 
     $tempJar = Join-Path $tmpRoot "$mod-$version.jar"
-    $finalJar = Join-Path $finalLibs "xdlib-$mod-$version.jar"
+    $finalJar = Join-Path $finalLibs "$name-$mod-$version.jar"
 
     if (Test-Path $tempJar)
     {
